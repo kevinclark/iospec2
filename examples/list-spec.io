@@ -13,7 +13,10 @@ describe(List,
 			)
 
 			emptyList("should be zero size",
-				l sort verify(size == 0)
+				// We can check equality with the default verify
+				l sort verify(size == 0, "#{l sort size} is not equal to 0" interpolate)
+				// Or with the verifyEqual helper
+				l sort size verifyEqual(0)
 			)
 		)
 

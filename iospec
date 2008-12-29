@@ -6,8 +6,15 @@ Object verify := method(
 	if(self doMessage(call argAt(0), call sender),
 		self
 	,
-		AssertionFailed raise(call argAt(0) code)
+		if(call argCount == 2,
+			AssertionFailed raise(call evalArgAt(1)),
+			AssertionFailed raise(call argAt(0) code)
+		)
 	)
+)
+
+Object verifyEqual := method(expected,
+	verify(== expected, "#{asString} did not equal #{expected asString}" interpolate)
 )
 
 BodyContext := Object clone do(
